@@ -38,7 +38,7 @@ jobs:
       - name: Move files
         shell: bash
         run: |
-          mkdir -p .pio/build_out
+          mkdir -p build_out
           find .pio/build/*/ -type f \( -name "*.bin" -o -name "*.elf" \) | while read file; do
             dirname=$(basename "$(dirname "$file")")
             cp "$file" "build_out/${dirname}_firmware.${file##*.}"
