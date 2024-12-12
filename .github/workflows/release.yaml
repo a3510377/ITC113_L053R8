@@ -38,7 +38,7 @@ jobs:
           prerelease: false
 
       - name: Release latest
-        if: github.event_name == 'push' && github.ref.startsWith('refs/tags/')
+        if: github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')
         uses: softprops/action-gh-release@v2
         env:
           PACKAGE_VERSION: ${{ github.ref_name }}
