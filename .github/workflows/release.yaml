@@ -62,7 +62,7 @@ jobs:
         env:
           PACKAGE_VERSION: ${{ github.event.inputs.version || github.ref_name }}
         with:
-          files: build_out/
+          files: build_out/*
           token: ${{ secrets.GITHUB_TOKEN }}
           name: v${{ env.PACKAGE_VERSION }}
           tag_name: v${{ env.PACKAGE_VERSION }}
