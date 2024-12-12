@@ -190,12 +190,12 @@ int main(void) {
     } else {
       update_data();
 
-      if (CHECK_BTN(SW1) && task > 0) {
-        task--;
+      if (CHECK_BTN(SW1)) {
         alert_time = 50;
-      } else if (CHECK_BTN(SW3) && task < 4) {
-        task++;
+        if (task > 0) task--;
+      } else if (CHECK_BTN(SW3)) {
         alert_time = 50;
+        if (task < 4) task++;
       }
       if (old_task != task) {
         clear_leds();
