@@ -76,9 +76,9 @@ jobs:
         with:
           files: build_out/
           token: ${{ secrets.GITHUB_TOKEN }}
-          name: latest
+          name: ${{ github.sha }}
           body: ${{ github.commit_message }}
-          tag_name: latest
+          tag_name: ${{ github.sha }}
           draft: false
           prerelease: false
           make_latest: true
