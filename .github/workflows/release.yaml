@@ -2,8 +2,6 @@ name: release
 
 on:
   push:
-    tags:
-      - v*.*.*
   workflow_dispatch:
     inputs:
       version:
@@ -40,7 +38,7 @@ jobs:
           prerelease: false
 
       - name: Release latest
-        if: github.event_name == 'push'
+        if: github.event_name == 'push' && github.ref.startsWith('refs/tags/')
         uses: softprops/action-gh-release@v2
         env:
           PACKAGE_VERSION: ${{ github.ref_name }}
