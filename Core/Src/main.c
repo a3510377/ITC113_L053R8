@@ -240,8 +240,8 @@ int main(void) {
               else if (powers[i] > powers[x1] && powers[i] > powers[x2]) {
                 led_colors_buff[i] = LED_RED;  // highest
               } else if (powers[i] < powers[x1] && powers[i] < powers[x2]) {
-                led_colors_buff[i] = LED_YELLOW;     // lowest
-              } else led_colors_buff[i] = LED_BLUE;  // 2nd highest
+                led_colors_buff[i] = LED_BLUE;         // 2nd highest
+              } else led_colors_buff[i] = LED_YELLOW;  // lowest
             }
           }
 
