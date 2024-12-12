@@ -41,12 +41,12 @@ jobs:
           mkdir -p .pio/build_out
           find .pio/build/*/ -type f \( -name "*.bin" -o -name "*.elf" \) | while read file; do
             dirname=$(basename "$(dirname "$file")")
-            cp "$file" ".pio/build_out/${dirname}_firmware.${file##*.}"
+            cp "$file" "build_out/${dirname}_firmware.${file##*.}"
           done
 
       - name: Check if files exist
         run: |
-          if [ -z "$(ls -A .pio/build_out)" ]; then
+          if [ -z "$(ls -A build_out)" ]; then
             echo "No firmware files found to upload."
             exit 1
           fi
@@ -54,7 +54,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: firmware
-          path: .pio/build_out/*
+          path: build_out/*
 
       - name: Release
         uses: softprops/action-gh-release@v2
@@ -74,9 +74,11 @@ jobs:
         env:
           PACKAGE_VERSION: ${{ github.ref_name }}
         with:
-          files: .pio/build_out/
+          files: build_out/
           token: ${{ secrets.GITHUB_TOKEN }}
           name: latest
+          body: ${{ github.commit_message }}
           tag_name: latest
           draft: false
           prerelease: false
+          make_latest: true
