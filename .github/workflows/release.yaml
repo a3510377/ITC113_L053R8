@@ -77,5 +77,6 @@ jobs:
           files: out/
           token: ${{ secrets.GITHUB_TOKEN }}
           name: latest
+          tag_name: latest
           draft: false
           prerelease: false
