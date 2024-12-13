@@ -252,8 +252,8 @@ int main(void) {
           int total_power = powers[0];
           for (int i = 1; i < 3; i++) total_power += powers[i];
           total_power /= 10;  // only show 2 decimal
-          sprintf(OLED_buf, "%3d.%02dW", total_power / 1000,
-                  total_power % 1000);
+          sprintf(OLED_buf, "%3d.%02dW", total_power / 100,
+                  total_power % 100);
           ssd1306_SetCursor(15, 10);
           ssd1306_WriteString(OLED_buf, Font_16x26, White);
 
@@ -308,13 +308,21 @@ int main(void) {
           ssd1306_SetCursor(0, 0);
           ssd1306_WriteString(OLED_buf, Font_7x10, White);
 
-          sprintf(OLED_buf, "Buzz:%-3s", SWITCH_NAME[!!use_alert]);
+          sprintf(OLED_buf, "Buzz:");
           ssd1306_SetCursor(0, 10);
+          ssd1306_WriteString(OLED_buf, Font_11x18, White);
+
+          sprintf(OLED_buf, "%-3s", SWITCH_NAME[!!use_alert]);
+          ssd1306_SetCursor(60, 10);
           ssd1306_WriteString(OLED_buf, Font_11x18,
                               select_alert ? White : Black);
 
-          sprintf(OLED_buf, "LEDs:%-3s", SWITCH_NAME[!!use_led]);
+          sprintf(OLED_buf, "LEDs:");
           ssd1306_SetCursor(0, 28);
+          ssd1306_WriteString(OLED_buf, Font_11x18, White);
+
+          sprintf(OLED_buf, "%-3s", SWITCH_NAME[!!use_led]);
+          ssd1306_SetCursor(60, 28);
           ssd1306_WriteString(OLED_buf, Font_11x18,
                               select_alert ? Black : White);
 
@@ -647,8 +655,8 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim6) {
   if (led_timer > 0) led_timer--;
 
   for (int i = 0; i < 3; i++) {
-    Q_acc[i] += currents[i];
-    energys_acc[i] += powers[i];
+    Q_acc[i] += currents[i]; // Q = It
+    energys_acc[i] += powers[i]; // w = Pt
 
     if (energys_acc[i] >= 360000) {
       energys_acc[i] = 0;
